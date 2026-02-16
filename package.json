@@ -1,8 +1,8 @@
 {
   "name": "rot-guard",
-  "displayName": "Rot guard",
+  "displayName": "RotGuard",
   "version": "0.0.1",
-  "description": "Plasmo extension using shadcn example",
+  "description": "A browser extension to reduce social media usage.",
   "author": "contact@a-irch.fr",
   "scripts": {
     "dev": "plasmo dev",
