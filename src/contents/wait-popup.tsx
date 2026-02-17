@@ -14,6 +14,7 @@ export const getStyle = () => {
 }
 
 const WaitPopUp = () => {
+  chrome.runtime.sendMessage({ action: "MUTE_TAB", value: true });
   return (
     <WaitPopup />        
   )

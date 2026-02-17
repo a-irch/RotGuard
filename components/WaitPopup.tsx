@@ -13,8 +13,12 @@ const WaitPopup = () => {
     const [isVisible, setIsVisible] = useState<boolean>(true);
 
     const cancel = () => {
-        window.open("https://google.com", "_self");
+        chrome.runtime.sendMessage({ action: "CLOSE_TAB" })
     };
+
+    const setTabMute = (shouldMute: boolean) => {
+        chrome.runtime.sendMessage({ action: "MUTE_TAB", value: shouldMute })
+    }
 
     useEffect(() => {
         if (!isAccepted) return;
@@ -40,10 +44,12 @@ const WaitPopup = () => {
 
         const handleEndWaiting = () => {
             setIsVisible(false);
+            setTabMute(false);
             setTimeout(() => {
                 setIsVisible(true);
                 setIsAccepted(false);
                 setProgress(0);
+                setTabMute(true);
             }, SESSION_TIME_MIN * 1000 * 60);
         }
 
