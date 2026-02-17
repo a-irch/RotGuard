@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Progress } from "./ui/progress";
-
-const WAITING_TIME_SEC = 15;
-const SESSION_TIME_MIN = 10; 
+import { useStorage } from "@plasmohq/storage/hook";
 
 const WaitPopup = () => {
+    const [waitingTime] = useStorage<number>("waiting-time", 15)
+    const [sessionDuration] = useStorage<number>("session-duration", 10)
+
     const [isAccepted, setIsAccepted] = useState<Boolean>(false);
     const [progress,setProgress] = useState<number>(0);
-    const [timeLeft, setTimeLeft] = useState<number>(WAITING_TIME_SEC);
+    const [timeLeft, setTimeLeft] = useState<number>(waitingTime);
     const [isVisible, setIsVisible] = useState<boolean>(true);
 
     const cancel = () => {
@@ -24,7 +25,7 @@ const WaitPopup = () => {
         if (!isAccepted) return;
 
         const startTime = Date.now();
-        const duration = WAITING_TIME_SEC * 1000;
+        const duration = waitingTime * 1000;
 
         const interval = setInterval(() => {
             const now = Date.now();
@@ -50,7 +51,7 @@ const WaitPopup = () => {
                 setIsAccepted(false);
                 setProgress(0);
                 setTabMute(true);
-            }, SESSION_TIME_MIN * 1000 * 60);
+            }, sessionDuration * 1000 * 60);
         }
 
         return () => clearInterval(interval);
