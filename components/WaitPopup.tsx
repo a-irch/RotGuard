@@ -3,7 +3,8 @@ import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Progress } from "./ui/progress";
 
-const WAITING_TIME_SEC = 10;
+const WAITING_TIME_SEC = 15;
+const SESSION_TIME_MIN = 10; 
 
 const WaitPopup = () => {
     const [isAccepted, setIsAccepted] = useState<Boolean>(false);
@@ -33,9 +34,18 @@ const WaitPopup = () => {
 
             if (elapsed >= duration) {
                 clearInterval(interval);
-                setIsVisible(false);
+                handleEndWaiting();
             }
         }, 20);
+
+        const handleEndWaiting = () => {
+            setIsVisible(false);
+            setTimeout(() => {
+                setIsVisible(true);
+                setIsAccepted(false);
+                setProgress(0);
+            }, SESSION_TIME_MIN * 1000 * 60);
+        }
 
         return () => clearInterval(interval);
     }, [isAccepted]);
