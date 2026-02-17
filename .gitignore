@@ -18,6 +18,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+dump.sh
+project_dump.txt
 
 # local env files
 .env*.local
