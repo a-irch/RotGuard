@@ -7,25 +7,25 @@ export default {
   useTabs: false,
   semi: false,
   singleQuote: true,
-  trailingComma: "all",
+  trailingComma: 'all',
   bracketSpacing: true,
   bracketSameLine: true,
   plugins: [
-    "@ianvs/prettier-plugin-sort-imports",
-    "prettier-plugin-tailwindcss"
+    '@ianvs/prettier-plugin-sort-imports',
+    'prettier-plugin-tailwindcss',
   ],
   importOrder: [
-    "<BUILTIN_MODULES>", // Node.js built-in modules
-    "<THIRD_PARTY_MODULES>", // Imports not matched by other special words or groups.
-    "", // Empty line
-    "^@plasmo/(.*)$",
-    "",
-    "^@plasmohq/(.*)$",
-    "",
-    "^~(.*)$",
-    "",
-    "^[./]"
+    '<BUILTIN_MODULES>', // Node.js built-in modules
+    '<THIRD_PARTY_MODULES>', // Imports not matched by other special words or groups.
+    '', // Empty line
+    '^@plasmo/(.*)$',
+    '',
+    '^@plasmohq/(.*)$',
+    '',
+    '^~(.*)$',
+    '',
+    '^[./]',
   ],
-	importOrderParserPlugins: ["typescript", "jsx", "decorators-legacy"],
-  importOrderTypeScriptVersion: "5.0.0",
+  importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
+  importOrderTypeScriptVersion: '5.0.0',
 }
