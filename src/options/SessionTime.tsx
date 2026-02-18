@@ -32,7 +32,7 @@ const SessionTime = () => {
 
   return (
     <div>
-      <h2 className="border-t pb-4 pt-2 text-lg font-semibold">
+      <h2 className="border-t pb-4 pt-2 text-xl font-semibold">
         Session Configuration
       </h2>
 
