@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import "~/globals.css"
 import SessionTime from './SessionTime';
 import { Toaster } from '@/components/ui/sonner';
+import RestrictList from './RestrictList';
 
 const Options = () => {
 
@@ -16,6 +17,7 @@ const Options = () => {
 
                     <CardContent>
                         <SessionTime />
+                        <RestrictList />
                     </CardContent>
                 </Card>
             </div>
