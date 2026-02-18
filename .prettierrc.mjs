@@ -6,8 +6,8 @@ export default {
   tabWidth: 2,
   useTabs: false,
   semi: false,
-  singleQuote: false,
-  trailingComma: "none",
+  singleQuote: true,
+  trailingComma: "all",
   bracketSpacing: true,
   bracketSameLine: true,
   plugins: [
@@ -25,5 +25,7 @@ export default {
     "^~(.*)$",
     "",
     "^[./]"
-  ]
+  ],
+	importOrderParserPlugins: ["typescript", "jsx", "decorators-legacy"],
+  importOrderTypeScriptVersion: "5.0.0",
 }
