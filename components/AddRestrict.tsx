@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { Button } from './ui/button'
+import { Button } from './ui/button';
 import {
   Dialog,
   DialogClose,
@@ -10,31 +10,31 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from './ui/dialog'
-import { Field, FieldGroup, FieldLabel } from './ui/field'
-import { Input } from './ui/input'
+} from './ui/dialog';
+import { Field, FieldGroup, FieldLabel } from './ui/field';
+import { Input } from './ui/input';
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
   InputGroupText,
-} from './ui/input-group'
-import { Label } from './ui/label'
+} from './ui/input-group';
+import { Label } from './ui/label';
 
 const AddRestrict = ({ addRestricted }: { addRestricted: (Page) => void }) => {
-  const [open, setOpen] = useState(false)
-  const [url, setUrl] = useState('')
-  const [name, setName] = useState('')
+  const [open, setOpen] = useState(false);
+  const [url, setUrl] = useState('');
+  const [name, setName] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    addRestricted({ name, url: 'https://' + url })
+    addRestricted({ name, url: 'https://' + url });
 
-    setOpen(false)
-    setName('')
-    setUrl('')
-  }
+    setOpen(false);
+    setName('');
+    setUrl('');
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -89,7 +89,7 @@ const AddRestrict = ({ addRestricted }: { addRestricted: (Page) => void }) => {
         </form>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
-export default AddRestrict
+export default AddRestrict;

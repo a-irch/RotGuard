@@ -4,14 +4,14 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from '@/components/ui/card';
 
-import '~/globals.css'
+import '~/globals.css';
 
-import { Toaster } from '@/components/ui/sonner'
+import { Toaster } from '@/components/ui/sonner';
 
-import RestrictList from './RestrictList'
-import SessionTime from './SessionTime'
+import RestrictList from './RestrictList';
+import SessionTime from './SessionTime';
 
 const Options = () => {
   return (
@@ -33,7 +33,7 @@ const Options = () => {
       </div>
       <Toaster />
     </>
-  )
-}
+  );
+};
 
-export default Options
+export default Options;

@@ -1,7 +1,7 @@
-import type { Page } from '@/types/Page'
-import { useState } from 'react'
+import type { Page } from '@/types/Page';
+import { useState } from 'react';
 
-import { Button } from './ui/button'
+import { Button } from './ui/button';
 import {
   Dialog,
   DialogClose,
@@ -11,34 +11,34 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from './ui/dialog'
-import { Field, FieldGroup, FieldLabel } from './ui/field'
-import { Input } from './ui/input'
+} from './ui/dialog';
+import { Field, FieldGroup, FieldLabel } from './ui/field';
+import { Input } from './ui/input';
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
   InputGroupText,
-} from './ui/input-group'
-import { Label } from './ui/label'
+} from './ui/input-group';
+import { Label } from './ui/label';
 
 interface EditRestrictProps {
-  page: Page
-  onEdit: (page: Page, editedPage: Page) => void
+  page: Page;
+  onEdit: (page: Page, editedPage: Page) => void;
 }
 
 const EditRestrict = ({ page, onEdit }: EditRestrictProps) => {
-  const [open, setOpen] = useState(false)
-  const [url, setUrl] = useState(page.url.replace('https://', ''))
-  const [name, setName] = useState(page.name)
+  const [open, setOpen] = useState(false);
+  const [url, setUrl] = useState(page.url.replace('https://', ''));
+  const [name, setName] = useState(page.name);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    onEdit(page, { name, url: 'https://' + url })
+    onEdit(page, { name, url: 'https://' + url });
 
-    setOpen(false)
-  }
+    setOpen(false);
+  };
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -92,7 +92,7 @@ const EditRestrict = ({ page, onEdit }: EditRestrictProps) => {
         </form>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
-export default EditRestrict
+export default EditRestrict;

@@ -1,20 +1,20 @@
-import type { Page } from '@/types/Page'
-import { MoreHorizontalIcon } from 'lucide-react'
+import type { Page } from '@/types/Page';
+import { MoreHorizontalIcon } from 'lucide-react';
 
-import EditRestrict from './EditRestrict'
-import { Button } from './ui/button'
+import EditRestrict from './EditRestrict';
+import { Button } from './ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu'
+} from './ui/dropdown-menu';
 
 interface RestrictedDropdownProps {
-  page: Page
-  onDelete: (page: Page) => void
-  onEdit: (page: Page, editedPage: Page) => void
+  page: Page;
+  onDelete: (page: Page) => void;
+  onEdit: (page: Page, editedPage: Page) => void;
 }
 
 const RestrictedDropdown = ({
@@ -33,8 +33,8 @@ const RestrictedDropdown = ({
         <DropdownMenuItem
           className="justify-end"
           onSelect={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
+            e.preventDefault();
+            e.stopPropagation();
           }}>
           <EditRestrict page={page} onEdit={onEdit} />
         </DropdownMenuItem>
@@ -46,7 +46,7 @@ const RestrictedDropdown = ({
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
-}
+  );
+};
 
-export default RestrictedDropdown
+export default RestrictedDropdown;

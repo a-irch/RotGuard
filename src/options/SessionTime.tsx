@@ -1,34 +1,34 @@
-import { Button } from '@/components/ui/button'
-import { Field, FieldDescription, FieldLabel } from '@/components/ui/field'
-import { Input } from '@/components/ui/input'
-import { useEffect, useState } from 'react'
-import { toast } from 'sonner'
+import { Button } from '@/components/ui/button';
+import { Field, FieldDescription, FieldLabel } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
-import { useStorage } from '@plasmohq/storage/hook'
+import { useStorage } from '@plasmohq/storage/hook';
 
 const SessionTime = () => {
-  const [waitingTime, setWaitingTime] = useStorage<number>('waiting-time', 15)
+  const [waitingTime, setWaitingTime] = useStorage<number>('waiting-time', 15);
   const [sessionDuration, setSessionDuration] = useStorage<number>(
     'session-duration',
     10,
-  )
+  );
 
-  const [localWaitingTime, setLocalWaitingTime] = useState<number>(15)
-  const [localSessionDuration, setLocalSessionDuration] = useState<number>(10)
+  const [localWaitingTime, setLocalWaitingTime] = useState<number>(15);
+  const [localSessionDuration, setLocalSessionDuration] = useState<number>(10);
 
   useEffect(() => {
-    setLocalWaitingTime(waitingTime)
-    setLocalSessionDuration(sessionDuration)
-  }, [waitingTime, sessionDuration])
+    setLocalWaitingTime(waitingTime);
+    setLocalSessionDuration(sessionDuration);
+  }, [waitingTime, sessionDuration]);
 
   const handleSave = () => {
-    setWaitingTime(localWaitingTime)
-    setSessionDuration(localSessionDuration)
+    setWaitingTime(localWaitingTime);
+    setSessionDuration(localSessionDuration);
     toast.success('Setting applied !', {
       description: 'New session time settings have been well applied',
       position: 'bottom-right',
-    })
-  }
+    });
+  };
 
   return (
     <div>
@@ -81,7 +81,7 @@ const SessionTime = () => {
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SessionTime
+export default SessionTime;

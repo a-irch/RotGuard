@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button';
 
-import '~/globals.css'
+import '~/globals.css';
 
 const IndexPopup = () => {
   return (
@@ -8,7 +8,7 @@ const IndexPopup = () => {
       <h1 className="items-center text-xl">RotGuard</h1>
       <Button className="w-2/3">Test</Button>
     </div>
-  )
-}
+  );
+};
 
-export default IndexPopup
+export default IndexPopup;

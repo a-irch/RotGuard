@@ -1,6 +1,6 @@
-import AddRestrict from '@/components/AddRestrict'
-import RestrictedDropdown from '@/components/RestrictedDropdown'
-import { Button } from '@/components/ui/button'
+import AddRestrict from '@/components/AddRestrict';
+import RestrictedDropdown from '@/components/RestrictedDropdown';
+import { Button } from '@/components/ui/button';
 import {
   Table,
   TableBody,
@@ -8,38 +8,38 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import type { Page } from '@/types/Page'
-import { toast } from 'sonner'
+} from '@/components/ui/table';
+import type { Page } from '@/types/Page';
+import { toast } from 'sonner';
 
-import { useStorage } from '@plasmohq/storage/hook'
+import { useStorage } from '@plasmohq/storage/hook';
 
-import WebsiteFavicon from './WebsiteFavIcon'
+import WebsiteFavicon from './WebsiteFavIcon';
 
 const RestrictList = () => {
   const [restrictList, setRestrictList] = useStorage<Page[]>(
     'restrict-list',
     [],
-  )
+  );
 
   const editRestrict = (page: Page, editedPage: Page) => {
-    let list = restrictList.filter((p) => p !== page)
-    list.push(editedPage)
-    setRestrictList(list)
-    toast.success('Website updated !')
-  }
+    let list = restrictList.filter((p) => p !== page);
+    list.push(editedPage);
+    setRestrictList(list);
+    toast.success('Website updated !');
+  };
 
   const addRestricted = (newPage: Page) => {
-    let list = Object.assign([], restrictList) // make a copy of the current list
-    list.push(newPage)
-    setRestrictList(list)
-    toast.success('Website added to restrict list !')
-  }
+    let list = Object.assign([], restrictList); // make a copy of the current list
+    list.push(newPage);
+    setRestrictList(list);
+    toast.success('Website added to restrict list !');
+  };
   const removeRestricted = (page: Page) => {
-    let list = restrictList.filter((p) => p !== page)
-    setRestrictList(list)
-    toast.success('Website removed from restrict list !')
-  }
+    let list = restrictList.filter((p) => p !== page);
+    setRestrictList(list);
+    toast.success('Website removed from restrict list !');
+  };
 
   return (
     <div className="mt-4">
@@ -82,7 +82,7 @@ const RestrictList = () => {
         <AddRestrict addRestricted={addRestricted} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default RestrictList
+export default RestrictList;

@@ -5,14 +5,14 @@ export default {
   printWidth: 80,
   tabWidth: 2,
   useTabs: false,
-  semi: false,
+  semi: true,
   singleQuote: true,
   trailingComma: 'all',
   bracketSpacing: true,
   bracketSameLine: true,
   plugins: [
-    '@ianvs/prettier-plugin-sort-imports',
     'prettier-plugin-tailwindcss',
+    '@ianvs/prettier-plugin-sort-imports',
   ],
   importOrder: [
     '<BUILTIN_MODULES>', // Node.js built-in modules

@@ -1,8 +1,8 @@
 export interface Page {
-  name: string
-  url: string
+  name: string;
+  url: string;
   customSession?: {
-    waitingTime: number
-    sessionDuration: number
-  }
+    waitingTime: number;
+    sessionDuration: number;
+  };
 }

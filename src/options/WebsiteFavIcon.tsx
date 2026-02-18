@@ -1,10 +1,10 @@
-import { SearchXIcon } from 'lucide-react'
-import { useState } from 'react'
+import { SearchXIcon } from 'lucide-react';
+import { useState } from 'react';
 
 const WebsiteFavicon = ({ url, name }: { url: string; name: string }) => {
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
 
-  if (error) return <SearchXIcon size={20} />
+  if (error) return <SearchXIcon size={20} />;
 
   return (
     <img
@@ -14,7 +14,7 @@ const WebsiteFavicon = ({ url, name }: { url: string; name: string }) => {
       height={20}
       onError={() => setError(true)}
     />
-  )
-}
+  );
+};
 
-export default WebsiteFavicon
+export default WebsiteFavicon;

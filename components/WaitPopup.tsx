@@ -1,74 +1,74 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
-import { useStorage } from '@plasmohq/storage/hook'
+import { useStorage } from '@plasmohq/storage/hook';
 
-import { Button } from './ui/button'
+import { Button } from './ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from './ui/card'
-import { Progress } from './ui/progress'
+} from './ui/card';
+import { Progress } from './ui/progress';
 
 const WaitPopup = () => {
-  const [waitingTime] = useStorage<number>('waiting-time', 15)
-  const [sessionDuration] = useStorage<number>('session-duration', 10)
+  const [waitingTime] = useStorage<number>('waiting-time', 15);
+  const [sessionDuration] = useStorage<number>('session-duration', 10);
 
-  const [isAccepted, setIsAccepted] = useState<Boolean>(false)
-  const [progress, setProgress] = useState<number>(0)
-  const [timeLeft, setTimeLeft] = useState<number>(waitingTime)
-  const [isVisible, setIsVisible] = useState<boolean>(true)
+  const [isAccepted, setIsAccepted] = useState<Boolean>(false);
+  const [progress, setProgress] = useState<number>(0);
+  const [timeLeft, setTimeLeft] = useState<number>(waitingTime);
+  const [isVisible, setIsVisible] = useState<boolean>(true);
 
   const cancel = () => {
-    chrome.runtime.sendMessage({ action: 'CLOSE_TAB' })
-  }
+    chrome.runtime.sendMessage({ action: 'CLOSE_TAB' });
+  };
 
   const setTabMute = (shouldMute: boolean) => {
-    chrome.runtime.sendMessage({ action: 'MUTE_TAB', value: shouldMute })
-  }
+    chrome.runtime.sendMessage({ action: 'MUTE_TAB', value: shouldMute });
+  };
 
   useEffect(() => {
-    if (!isAccepted) return
+    if (!isAccepted) return;
 
-    const startTime = Date.now()
-    const duration = waitingTime * 1000
+    const startTime = Date.now();
+    const duration = waitingTime * 1000;
 
     const interval = setInterval(() => {
-      const now = Date.now()
-      const elapsed = now - startTime
+      const now = Date.now();
+      const elapsed = now - startTime;
 
-      const newProgress = Math.min((elapsed / duration) * 100, 100)
-      const remainingSeconds = Math.ceil((duration - elapsed) / 1000)
+      const newProgress = Math.min((elapsed / duration) * 100, 100);
+      const remainingSeconds = Math.ceil((duration - elapsed) / 1000);
 
-      setProgress(newProgress)
-      setTimeLeft(remainingSeconds > 0 ? remainingSeconds : 0)
+      setProgress(newProgress);
+      setTimeLeft(remainingSeconds > 0 ? remainingSeconds : 0);
 
       if (elapsed >= duration) {
-        clearInterval(interval)
-        handleEndWaiting()
+        clearInterval(interval);
+        handleEndWaiting();
       }
-    }, 20)
+    }, 20);
 
     const handleEndWaiting = () => {
-      setIsVisible(false)
-      setTabMute(false)
+      setIsVisible(false);
+      setTabMute(false);
       setTimeout(
         () => {
-          setIsVisible(true)
-          setIsAccepted(false)
-          setProgress(0)
-          setTabMute(true)
+          setIsVisible(true);
+          setIsAccepted(false);
+          setProgress(0);
+          setTabMute(true);
         },
         sessionDuration * 1000 * 60,
-      )
-    }
+      );
+    };
 
-    return () => clearInterval(interval)
-  }, [isAccepted])
+    return () => clearInterval(interval);
+  }, [isAccepted]);
 
-  if (!isVisible) return null
+  if (!isVisible) return null;
 
   return (
     <div className="fixed inset-0 z-[99999] flex items-center justify-center backdrop-blur-xl">
@@ -107,7 +107,7 @@ const WaitPopup = () => {
         </CardContent>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-export default WaitPopup
+export default WaitPopup;
