@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import type { Page } from "@/types/Page";
 import { useStorage } from "@plasmohq/storage/hook";
 import { toast } from "sonner";
+import WebsiteFavicon from "./WebsiteFavIcon";
 
 const RestrictList = () => {
     const [restrictList, setRestrictList] = useStorage<Page[]>('restrict-list', []);
@@ -37,6 +38,7 @@ const RestrictList = () => {
             <Table>
                 <TableHeader>
                     <TableRow>
+                        <TableHead></TableHead>
                         <TableHead>Name</TableHead>
                         <TableHead>URL</TableHead>
                         <TableHead>Session</TableHead>
@@ -46,6 +48,9 @@ const RestrictList = () => {
                 <TableBody>
                     {restrictList.map((page) => (
                         <TableRow key={page.name}>
+                            <TableCell>
+                                <WebsiteFavicon url={page.url} name={page.name} />
+                            </TableCell>
                             <TableCell>{page.name}</TableCell>
                             <TableCell>{page.url}</TableCell>
                             <TableCell>Default</TableCell>
