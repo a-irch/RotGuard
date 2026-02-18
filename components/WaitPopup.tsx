@@ -16,7 +16,7 @@ const WaitPopup = () => {
   const [waitingTime] = useStorage<number>('waiting-time', 15);
   const [sessionDuration] = useStorage<number>('session-duration', 10);
 
-  const [isAccepted, setIsAccepted] = useState<Boolean>(false);
+  const [isAccepted, setIsAccepted] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(waitingTime);
   const [isVisible, setIsVisible] = useState<boolean>(true);

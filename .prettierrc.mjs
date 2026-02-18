@@ -11,8 +11,8 @@ export default {
   bracketSpacing: true,
   bracketSameLine: true,
   plugins: [
-    'prettier-plugin-tailwindcss',
     '@ianvs/prettier-plugin-sort-imports',
+    'prettier-plugin-tailwindcss',
   ],
   importOrder: [
     '<BUILTIN_MODULES>', // Node.js built-in modules
@@ -28,4 +28,4 @@ export default {
   ],
   importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
   importOrderTypeScriptVersion: '5.0.0',
-}
+};
