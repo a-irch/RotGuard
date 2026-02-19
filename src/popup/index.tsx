@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 
-import '~/globals.css';
+import '@/globals.css';
 
 const IndexPopup = () => {
   return (

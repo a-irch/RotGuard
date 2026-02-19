@@ -1,6 +1,6 @@
 import WaitPopup from '@/components/WaitPopup';
 import type { Page } from '@/types/Page';
-import cssText from 'data-text:@/src/globals.css';
+import cssText from 'data-text:@/globals.css';
 import type { PlasmoCSConfig } from 'plasmo';
 import { useEffect, useState } from 'react';
 
