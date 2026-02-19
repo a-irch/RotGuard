@@ -33,3 +33,6 @@ dist/
 
 # typescript
 .tsbuildinfo
+
+# IDE / Code Editor
+.vscode/*
