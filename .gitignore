@@ -34,5 +34,8 @@ dist/
 # typescript
 .tsbuildinfo
 
+# build
+*.tsbuildinfo
+
 # IDE / Code Editor
 .vscode/*

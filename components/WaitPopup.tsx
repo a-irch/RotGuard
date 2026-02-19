@@ -66,7 +66,7 @@ const WaitPopup = () => {
     };
 
     return () => clearInterval(interval);
-  }, [isAccepted]);
+  }, [isAccepted, sessionDuration, waitingTime]);
 
   if (!isVisible) return null;
 
