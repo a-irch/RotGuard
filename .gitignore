@@ -5,6 +5,7 @@
 /node_modules
 /.pnp
 .pnp.js
+pnpm-workspace.yaml
 
 # testing
 /coverage
@@ -33,6 +34,9 @@ dist/
 
 # typescript
 .tsbuildinfo
+
+# build
+*.tsbuildinfo
 
 # IDE / Code Editor
 .vscode/*

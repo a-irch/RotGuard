@@ -1,6 +1,5 @@
 import AddRestrict from '@/components/AddRestrict';
 import RestrictedDropdown from '@/components/RestrictedDropdown';
-import { Button } from '@/components/ui/button';
 import {
   Table,
   TableBody,
@@ -23,20 +22,20 @@ const RestrictList = () => {
   );
 
   const editRestrict = (page: Page, editedPage: Page) => {
-    let list = restrictList.filter((p) => p !== page);
+    const list = restrictList.filter((p) => p !== page);
     list.push(editedPage);
     setRestrictList(list);
     toast.success('Website updated !');
   };
 
   const addRestricted = (newPage: Page) => {
-    let list = Object.assign([], restrictList); // make a copy of the current list
+    const list = Object.assign([], restrictList); // make a copy of the current list
     list.push(newPage);
     setRestrictList(list);
     toast.success('Website added to restrict list !');
   };
   const removeRestricted = (page: Page) => {
-    let list = restrictList.filter((p) => p !== page);
+    const list = restrictList.filter((p) => p !== page);
     setRestrictList(list);
     toast.success('Website removed from restrict list !');
   };

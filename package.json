@@ -8,8 +8,11 @@
     "dev": "plasmo dev",
     "build": "plasmo build",
     "package": "plasmo package",
+    "typecheck": "tsc --noEmit",
     "lint": "prettier . --check",
-    "lint:fix": "prettier . --write"
+    "lint:fix": "prettier . --write",
+    "lint:eslint": "eslint src components lib",
+    "lint:eslint:fix": "eslint src components lib --fix"
   },
   "dependencies": {
     "@plasmohq/storage": "^1.15.0",
@@ -31,6 +34,7 @@
     "tailwindcss-animate": "1.0.7"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@ianvs/prettier-plugin-sort-imports": "4.1.1",
     "@types/chrome": "0.0.258",
     "@types/node": "20.11.5",
@@ -40,11 +44,14 @@
     "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "globals": "^17.3.0",
     "postcss": "8.4.33",
     "prettier": "3.2.4",
     "prettier-plugin-tailwindcss": "0.6.11",
     "tailwindcss": "3.4.1",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "typescript-eslint": "^8.56.0"
   },
   "manifest": {
     "host_permissions": [
@@ -53,5 +60,6 @@
     "permissions": [
       "tabs"
     ]
-  }
+  },
+  "packageManager": "pnpm@10.30.0+sha512.2b5753de015d480eeb88f5b5b61e0051f05b4301808a82ec8b840c9d2adf7748eb352c83f5c1593ca703ff1017295bc3fdd3119abb9686efc96b9fcb18200937"
 }
