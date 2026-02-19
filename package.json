@@ -11,8 +11,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "prettier . --check",
     "lint:fix": "prettier . --write",
-    "lint:eslint": "eslint src components lib",
-    "lint:eslint:fix": "eslint src components lib --fix"
+    "lint:eslint": "eslint src",
+    "lint:eslint:fix": "eslint src --fix"
   },
   "dependencies": {
     "@plasmohq/storage": "^1.15.0",
