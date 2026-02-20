@@ -12,14 +12,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from './ui/dialog';
-import { Field, FieldGroup, FieldLabel } from './ui/field';
+import { Field, FieldGroup } from './ui/field';
 import { Input } from './ui/input';
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-  InputGroupText,
-} from './ui/input-group';
 import { Label } from './ui/label';
 
 interface EditRestrictProps {
@@ -29,13 +23,13 @@ interface EditRestrictProps {
 
 const EditRestrict = ({ page, onEdit }: EditRestrictProps) => {
   const [open, setOpen] = useState(false);
-  const [url, setUrl] = useState(page.url.replace('https://', ''));
+  const [domain, setDomain] = useState(page.domain);
   const [name, setName] = useState(page.name);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    onEdit(page, { name, url: 'https://' + url });
+    onEdit(page, { name, domain });
 
     setOpen(false);
   };
@@ -66,20 +60,15 @@ const EditRestrict = ({ page, onEdit }: EditRestrictProps) => {
               />
             </Field>
             <Field>
-              <FieldLabel htmlFor="url">URL</FieldLabel>
-              <InputGroup>
-                <InputGroupInput
-                  id="url"
-                  value={url}
-                  onChange={(e) => setUrl(e.target.value)}
-                  className="col-span-3"
-                  placeholder="example.com/*"
-                  required
-                />
-                <InputGroupAddon>
-                  <InputGroupText>https://</InputGroupText>
-                </InputGroupAddon>
-              </InputGroup>
+              <Label htmlFor="domain">Domain</Label>
+              <Input
+                id="domain"
+                value={domain}
+                onChange={(e) => setDomain(e.target.value)}
+                className="col-span-3"
+                placeholder="example.com"
+                required
+              />
             </Field>
           </FieldGroup>
 

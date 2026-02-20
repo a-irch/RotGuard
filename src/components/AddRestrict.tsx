@@ -11,29 +11,23 @@ import {
   DialogTitle,
   DialogTrigger,
 } from './ui/dialog';
-import { Field, FieldGroup, FieldLabel } from './ui/field';
+import { Field, FieldGroup } from './ui/field';
 import { Input } from './ui/input';
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-  InputGroupText,
-} from './ui/input-group';
 import { Label } from './ui/label';
 
 const AddRestrict = ({ addRestricted }: { addRestricted: (Page) => void }) => {
   const [open, setOpen] = useState(false);
-  const [url, setUrl] = useState('');
+  const [domain, setDomain] = useState('');
   const [name, setName] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    addRestricted({ name, url: 'https://' + url });
+    addRestricted({ name, domain });
 
     setOpen(false);
     setName('');
-    setUrl('');
+    setDomain('');
   };
 
   return (
@@ -63,20 +57,15 @@ const AddRestrict = ({ addRestricted }: { addRestricted: (Page) => void }) => {
               />
             </Field>
             <Field>
-              <FieldLabel htmlFor="url">URL</FieldLabel>
-              <InputGroup>
-                <InputGroupInput
-                  id="url"
-                  value={url}
-                  onChange={(e) => setUrl(e.target.value)}
-                  className="col-span-3"
-                  placeholder="example.com/*"
-                  required
-                />
-                <InputGroupAddon>
-                  <InputGroupText>https://</InputGroupText>
-                </InputGroupAddon>
-              </InputGroup>
+              <Label htmlFor="domain">Domain</Label>
+              <Input
+                id="domain"
+                value={domain}
+                onChange={(e) => setDomain(e.target.value)}
+                className="col-span-3"
+                placeholder="example.com"
+                required
+              />
             </Field>
           </FieldGroup>
 

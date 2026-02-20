@@ -26,11 +26,14 @@ const WaitPopUp = () => {
       setShouldShow(false);
       return;
     }
-    const currentUrl = window.location.href;
+
+    const currentDomain = window.location.hostname.replace('www.', '');
 
     const isRestricted = restrictList.some((page) => {
-      const cleanPattern = page.url.replace('*', '');
-      return currentUrl.includes(cleanPattern);
+      return (
+        currentDomain === page.domain ||
+        currentDomain.endsWith('.' + page.domain)
+      );
     });
 
     if (isRestricted) {
