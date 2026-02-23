@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 
 import { useStorage } from '@plasmohq/storage/hook';
 
+import type { Session } from '~/types/Session';
+
 import { Button } from './ui/button';
 import {
   Card,
@@ -12,14 +14,20 @@ import {
 } from './ui/card';
 import { Progress } from './ui/progress';
 
-const WaitPopup = () => {
+const WaitPopup = ({ domain }: { domain: string }) => {
   const [waitingTime] = useStorage<number>('waiting-time', 15);
   const [sessionDuration] = useStorage<number>('session-duration', 10);
+
+  const [sessions, setSessions] = useStorage<Session[]>('active-session', []);
 
   const [isAccepted, setIsAccepted] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(waitingTime);
-  const [isVisible, setIsVisible] = useState<boolean>(true);
+
+  const activeSession = sessions?.find(
+    (s) => s.domain === domain && s.expireDate > Date.now(),
+  );
+  const isAuthorized = !!activeSession;
 
   const cancel = () => {
     chrome.runtime.sendMessage({ action: 'CLOSE_TAB' });
@@ -30,7 +38,7 @@ const WaitPopup = () => {
   };
 
   useEffect(() => {
-    if (!isAccepted) return;
+    if (!isAccepted || isAuthorized) return;
 
     const startTime = Date.now();
     const duration = waitingTime * 1000;
@@ -52,23 +60,41 @@ const WaitPopup = () => {
     }, 20);
 
     const handleEndWaiting = () => {
-      setIsVisible(false);
       setTabMute(false);
-      setTimeout(
-        () => {
-          setIsVisible(true);
-          setIsAccepted(false);
-          setProgress(0);
-          setTabMute(true);
-        },
-        sessionDuration * 1000 * 60,
+      const expireDate = Date.now() + sessionDuration * 1000 * 60;
+      const cleanedSessions = (sessions || []).filter(
+        (s) => s.expireDate > Date.now() && s.domain !== domain,
       );
+      setSessions([...cleanedSessions, { domain, expireDate }]);
+      setIsAccepted(false);
+      setProgress(0);
     };
 
     return () => clearInterval(interval);
-  }, [isAccepted, sessionDuration, waitingTime]);
+  }, [
+    isAccepted,
+    isAuthorized,
+    sessionDuration,
+    waitingTime,
+    domain,
+    sessions,
+    setSessions,
+  ]);
 
-  if (!isVisible) return null;
+  useEffect(() => {
+    if (isAuthorized) {
+      const timeRemaining = activeSession.expireDate - Date.now();
+
+      const timer = setTimeout(() => {
+        setTabMute(true);
+        setSessions((prev) => prev.filter((s) => s.domain !== domain));
+      }, timeRemaining);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isAuthorized, activeSession, domain, setSessions]);
+
+  if (isAuthorized) return null;
 
   return (
     <div className="fixed inset-0 z-[99999] flex items-center justify-center backdrop-blur-xl">

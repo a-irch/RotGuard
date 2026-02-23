@@ -1,6 +1,6 @@
 export interface Page {
   name: string;
-  url: string;
+  domain: string;
   customSession?: {
     waitingTime: number;
     sessionDuration: number;

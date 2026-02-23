@@ -21,16 +21,19 @@ const WaitPopUp = () => {
   const [restrictList] = useStorage<Page[]>('restrict-list', []);
   const [shouldShow, setShouldShow] = useState(false);
 
+  const [currentDomain, setCurrentDomain] = useState<string>('');
+
   useEffect(() => {
     if (!restrictList || restrictList.length === 0) {
       setShouldShow(false);
       return;
     }
-    const currentUrl = window.location.href;
+
+    const domain = window.location.hostname.replace('www.', '');
+    setCurrentDomain(domain);
 
     const isRestricted = restrictList.some((page) => {
-      const cleanPattern = page.url.replace('*', '');
-      return currentUrl.includes(cleanPattern);
+      return domain === page.domain || domain.endsWith('.' + page.domain);
     });
 
     if (isRestricted) {
@@ -43,7 +46,7 @@ const WaitPopUp = () => {
 
   if (!shouldShow) return null;
 
-  return <WaitPopup />;
+  return <WaitPopup domain={currentDomain} />;
 };
 
 export default WaitPopUp;

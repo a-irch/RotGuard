@@ -51,7 +51,7 @@ const RestrictList = () => {
           <TableRow>
             <TableHead></TableHead>
             <TableHead>Name</TableHead>
-            <TableHead>URL</TableHead>
+            <TableHead>Domain</TableHead>
             <TableHead>Session</TableHead>
             <TableHead></TableHead>
           </TableRow>
@@ -60,10 +60,10 @@ const RestrictList = () => {
           {restrictList.map((page) => (
             <TableRow key={page.name}>
               <TableCell>
-                <WebsiteFavicon url={page.url} name={page.name} />
+                <WebsiteFavicon domain={page.domain} name={page.name} />
               </TableCell>
               <TableCell>{page.name}</TableCell>
-              <TableCell>{page.url}</TableCell>
+              <TableCell>{page.domain}</TableCell>
               <TableCell>Default</TableCell>
               <TableCell className="text-right">
                 <RestrictedDropdown
