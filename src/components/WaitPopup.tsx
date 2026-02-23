@@ -110,11 +110,11 @@ const WaitPopup = ({ domain }: { domain: string }) => {
             <>
               <p>Do you really need to access this page ?</p>
               <div className="flex justify-end gap-2">
-                <Button variant="destructive" onClick={() => cancel()}>
+                <Button variant="secondary" onClick={() => cancel()}>
                   Cancel
                 </Button>
                 <Button
-                  variant="secondary"
+                  variant="default"
                   onClick={() => setIsAccepted(!isAccepted)}>
                   Access
                 </Button>
