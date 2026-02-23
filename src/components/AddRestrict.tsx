@@ -41,7 +41,7 @@ const AddRestrict = ({ addRestricted }: { addRestricted: (Page) => void }) => {
           <DialogHeader>
             <DialogTitle>Add Restricted Website</DialogTitle>
             <DialogDescription>
-              Add a new restricted website to better match your need
+              Add a new restricted website to better match your needs
             </DialogDescription>
           </DialogHeader>
 
@@ -73,7 +73,7 @@ const AddRestrict = ({ addRestricted }: { addRestricted: (Page) => void }) => {
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button type="submit">Add new !</Button>
+            <Button type="submit">Add new</Button>
           </DialogFooter>
         </form>
       </DialogContent>

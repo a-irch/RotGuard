@@ -24,8 +24,8 @@ const SessionTime = () => {
   const handleSave = () => {
     setWaitingTime(localWaitingTime);
     setSessionDuration(localSessionDuration);
-    toast.success('Setting applied !', {
-      description: 'New session time settings have been well applied',
+    toast.success('Settings applied !', {
+      description: 'New session time settings have been successfully applied.',
       position: 'bottom-right',
     });
   };

@@ -21,7 +21,7 @@ const Options = () => {
           <CardHeader>
             <CardTitle className="text-3xl">Options</CardTitle>
             <CardDescription>
-              Modify RotGuard parameters to match your needs.
+              Modify RotGuard settings to match your needs.
             </CardDescription>
           </CardHeader>
 
