@@ -29,15 +29,20 @@ const RestrictList = () => {
   };
 
   const addRestricted = (newPage: Page) => {
-    const list = Object.assign([], restrictList); // make a copy of the current list
-    list.push(newPage);
-    setRestrictList(list);
+    setRestrictList([...restrictList, newPage]);
     toast.success('Website added to restrict list !');
   };
   const removeRestricted = (page: Page) => {
     const list = restrictList.filter((p) => p !== page);
     setRestrictList(list);
-    toast.success('Website removed from restrict list !');
+    toast.success('Website removed from restrict list !', {
+      action: {
+        label: 'Undo',
+        onClick: () => {
+          setRestrictList([...list, page]);
+        },
+      },
+    });
   };
 
   return (
