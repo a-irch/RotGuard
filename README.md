@@ -1,33 +1,79 @@
-This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
+<p align="center">
+  <img src="./assets/icon512.png" alt="RotGuard's Logo" width="80" />
+</p>
 
-## Getting Started
+<h1 align="center">RotGuard</h1>
 
-First, run the development server:
+<p align="center">
+  <img style="padding-right: 6px" src="https://img.shields.io/badge/Plasmo-000000" />
+  <img style="padding-right: 6px" src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white" />
+  <img style="padding-right: 6px" src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white" />
+  <img src="https://img.shields.io/badge/shadcn%2Fui-000000?style=flat&logo=shadcnui&logoColor=white" />
+</p>
 
-```bash
-pnpm dev
-# or
-npm run dev
-```
+<h3 align="center">A browser extension to reduce social media overconsumption and boost your productivity!</h3>
 
-Open your browser and load the appropriate development build. For example, if you are developing for the chrome browser, using manifest v3, use: `build/chrome-mv3-dev`.
+## Overview
 
-You can start editing the popup by modifying `popup.tsx`. It should auto-update as you make changes. To add an options page, simply add a `options.tsx` file to the root of the project, with a react component default exported. Likewise to add a content page, add a `content.ts` file to the root of the project, importing some module and do some logic, then reload the extension on your browser.
+**RotGuard** is a browser extension designed to help you regain control over your digital habits.
 
-For further guidance, [visit our Documentation](https://docs.plasmo.com/)
+Instead of blocking websites entirely (which often leads to frustration and instantly disabling the extension), RotGuard adds _intentional friction_ before accessing distracting content.
 
-## Making production build
+### How it works
 
-Run the following:
+1. The extension injects a blocking UI over the restricted websites.
+2. The user must consciously confirm they want to access the site.
+3. The user has to wait through a mandatory, custom delay.
+4. After the delay, the content is unlocked for a limited "session". Once the time is up, the friction resets!
 
-```bash
-pnpm build
-# or
-npm run build
-```
+## Features
 
-This should create a production bundle for your extension, ready to be zipped and published to the stores.
+- **Custom Blocklist:** Restrict specific distracting websites.
+- **Intentional Delay:** Mandatory waiting time before access to break bad habits.
+- **Session Limits:** Custom session durations to keep your browsing in check.
+- **Privacy First:** Runs locally in your browser. No tracking, no data collection.
 
-## Submit to the webstores
+## Installation
 
-The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Prior to using this action however, make sure to build your extension and upload the first version to the store to establish the basic credentials. Then, simply follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) and you should be on your way for automated submission!
+### From Firefox Add-ons Store
+
+_(Coming soon)_
+
+### On Chrome / Edge / Brave (Manual Installation)
+
+#### Option A: The Easy Way (Recommended)
+
+1. Go to the [Releases](../../releases) page of this repository.
+2. Download the latest `chrome-mv3-prod.zip` file.
+3. Extract the ZIP file into a folder on your computer.
+4. Open your browser and navigate to `chrome://extensions/` (or `edge://extensions/`, `brave://extensions/`).
+5. Enable **Developer mode** (usually a toggle in the top right corner).
+6. Click on **Load unpacked** and select the folder you just extracted.
+7. You're good to go!
+
+#### Option B: Build from source
+
+1. Clone the repository :
+
+   ```bash
+   git clone https://github.com/a-irch/RotGuard.git
+   cd RotGuard
+   ```
+
+2. Install dependencies :
+
+   ```bash
+   pnpm install
+   ```
+
+3. Build for production :
+
+   ```bash
+    pnpm build --zip
+   ```
+
+4. Load the production build :
+   - Go to `chrome://extensions/` (or `edge://extensions/`, `brave://extensions/`)
+   - Enable **Developer mode**
+   - Click **Load unpacked**
+   - Select the `build/chrome-mv3-prod` folder
