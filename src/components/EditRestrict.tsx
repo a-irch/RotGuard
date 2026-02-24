@@ -44,7 +44,7 @@ const EditRestrict = ({ page, onEdit }: EditRestrictProps) => {
           <DialogHeader>
             <DialogTitle>Edit Restricted Website</DialogTitle>
             <DialogDescription>
-              Edit this restricted website to match your need
+              Edit this restricted website to match your needs
             </DialogDescription>
           </DialogHeader>
 

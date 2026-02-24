@@ -102,7 +102,7 @@ const WaitPopup = ({ domain }: { domain: string }) => {
         <CardHeader>
           <CardTitle className="text-2xl">This page is restricted</CardTitle>
           <CardDescription className="text-xl">
-            You need to wait before accessing to this page...
+            You need to wait before accessing this page...
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
