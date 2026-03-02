@@ -37,7 +37,7 @@ Instead of blocking websites entirely (which often leads to frustration and inst
 
 ### From Firefox Add-ons Store
 
-_(Coming soon)_
+[![Get it on Firefox](https://img.shields.io/badge/Firefox-Get_RotGuard-FF7139?style=for-the-badge&logo=firefox-browser&logoColor=white)](https://addons.mozilla.org/en-US/firefox/addon/rotguard/)
 
 ### On Chrome / Edge / Brave (Manual Installation)
 
