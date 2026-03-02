@@ -1,0 +1,48 @@
+name: 'Release & Publish'
+
+# Le workflow se déclenche uniquement quand tu crées un tag Git qui commence par "v" (ex: v1.0.1)
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build & Package Firefox
+        run: |
+          pnpm build --target=firefox-mv2
+          pnpm package --target=firefox-mv2
+
+      - name: Build & Package Chrome
+        run: |
+          pnpm build --target=chrome-mv3
+          pnpm package --target=chrome-mv3
+
+      #- name: Browser Platform Publish (Firefox)
+      #uses: PlasmoHQ/bpp@v3
+      #with:
+      #keys: ${{ secrets.SUBMIT_KEYS }}
+
+      - name: Upload ZIPs to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            build/chrome-mv3-prod.zip
+            build/firefox-mv2-prod.zip
