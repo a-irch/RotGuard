@@ -42,6 +42,7 @@ jobs:
         uses: PlasmoHQ/bpp@v3
         with:
           keys: ${{ secrets.SUBMIT_KEYS }}
+          artifact: build/firefox-mv2-prod.zip
 
       - name: Upload ZIPs to GitHub Release
         uses: softprops/action-gh-release@v2
