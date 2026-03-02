@@ -1,7 +1,7 @@
 {
   "name": "rot-guard",
   "displayName": "RotGuard",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A browser extension to reduce social media usage.",
   "author": "contact@a-irch.fr",
   "scripts": {
