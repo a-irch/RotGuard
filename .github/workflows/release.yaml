@@ -38,10 +38,10 @@ jobs:
           pnpm build --target=chrome-mv3
           pnpm package --target=chrome-mv3
 
-      #- name: Browser Platform Publish (Firefox)
-      #uses: PlasmoHQ/bpp@v3
-      #with:
-      #keys: ${{ secrets.SUBMIT_KEYS }}
+      - name: Browser Platform Publish (Firefox)
+        uses: PlasmoHQ/bpp@v3
+        with:
+          keys: ${{ secrets.SUBMIT_KEYS }}
 
       - name: Upload ZIPs to GitHub Release
         uses: softprops/action-gh-release@v2
