@@ -4,6 +4,7 @@ import { useStorage } from '@plasmohq/storage/hook';
 
 import type { Session } from '~/types/Session';
 
+import RemainingTime from './RemainingTime';
 import { Button } from './ui/button';
 import {
   Card,
@@ -94,7 +95,7 @@ const WaitPopup = ({ domain }: { domain: string }) => {
     }
   }, [isAuthorized, activeSession, domain, setSessions]);
 
-  if (isAuthorized) return null;
+  if (isAuthorized) return <RemainingTime activeSession={activeSession} />;
 
   return (
     <div className="fixed inset-0 z-[99999] flex items-center justify-center backdrop-blur-xl">
