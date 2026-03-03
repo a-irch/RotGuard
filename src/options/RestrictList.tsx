@@ -48,7 +48,7 @@ const RestrictList = () => {
   return (
     <div className="mt-4">
       <h2 className="border-t pb-4 pt-2 text-xl font-semibold">
-        Session Configuration
+        Restricted Websites
       </h2>
 
       <Table>
