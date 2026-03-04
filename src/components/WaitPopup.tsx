@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useStorage } from '@plasmohq/storage/hook';
 
+import type { DailyLimitSession, Page } from '~/types/Page';
 import type { Session } from '~/types/Session';
 
 import RemainingTime from './RemainingTime';
@@ -18,9 +19,21 @@ import { Progress } from './ui/progress';
 const WaitPopup = ({ domain }: { domain: string }) => {
   const [waitingTime] = useStorage<number>('waiting-time', 15);
   const [sessionDuration] = useStorage<number>('session-duration', 10);
+  const [dailyLimit] = useStorage<DailyLimitSession>('daily-limit', 'none');
 
   const [sessions, setSessions] = useStorage<Session[]>('active-session', []);
   const [displayRemaining] = useStorage<boolean>('display-remaining', false);
+  const [restrictList, setRestrictList] = useStorage<Page[]>(
+    'restrict-list',
+    [],
+  );
+
+  const today = new Date().toLocaleDateString('en-US');
+  const currentPage = restrictList?.find(
+    (p) => p.domain === domain || domain.endsWith('.' + p.domain),
+  );
+
+  const sessionsToday = currentPage?.stats?.[today] || 0;
 
   const [isAccepted, setIsAccepted] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
@@ -68,6 +81,18 @@ const WaitPopup = ({ domain }: { domain: string }) => {
         (s) => s.expireDate > Date.now() && s.domain !== domain,
       );
       setSessions([...cleanedSessions, { domain, expireDate }]);
+
+      setRestrictList((prev) =>
+        prev.map((page) => {
+          if (page.domain === domain || domain.endsWith('.' + page.domain)) {
+            const newStats = { ...(page.stats || {}) };
+            newStats[today] = (newStats[today] || 0) + 1;
+            return { ...page, stats: newStats };
+          }
+          return page;
+        }),
+      );
+
       setIsAccepted(false);
       setProgress(0);
     };
@@ -81,6 +106,8 @@ const WaitPopup = ({ domain }: { domain: string }) => {
     domain,
     sessions,
     setSessions,
+    setRestrictList,
+    today,
   ]);
 
   useEffect(() => {
@@ -113,19 +140,30 @@ const WaitPopup = ({ domain }: { domain: string }) => {
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
           {!isAccepted ? (
-            <>
-              <p>Do you really need to access this page ?</p>
-              <div className="flex justify-end gap-2">
-                <Button variant="secondary" onClick={() => cancel()}>
-                  Cancel
-                </Button>
-                <Button
-                  variant="default"
-                  onClick={() => setIsAccepted(!isAccepted)}>
-                  Access
-                </Button>
-              </div>
-            </>
+            dailyLimit === 'none' || sessionsToday <= dailyLimit ? (
+              <>
+                <p>Do you really need to access this page ?</p>
+                <p>
+                  You already use {sessionsToday}
+                  {sessionsToday > 1 ? ' sessions ' : ' session '}
+                  {dailyLimit !== 'none' && `on ${dailyLimit}`} today
+                </p>
+                <div className="flex justify-end gap-2">
+                  <Button variant="secondary" onClick={() => cancel()}>
+                    Cancel
+                  </Button>
+                  <Button
+                    variant="default"
+                    onClick={() => setIsAccepted(!isAccepted)}>
+                    Access
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <>
+                <p>Daily session limit reached. Come back tomorrow !</p>
+              </>
+            )
           ) : (
             <div className="flex flex-col gap-4 duration-300 animate-in fade-in zoom-in">
               <p className="text-center font-medium">
