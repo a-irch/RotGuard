@@ -11,6 +11,7 @@ import '@/globals.css';
 import { Toaster } from '@/components/ui/sonner';
 import { Github, Globe } from 'lucide-react';
 
+import Display from './Display';
 import RestrictList from './RestrictList';
 import SessionTime from './SessionTime';
 
@@ -27,6 +28,7 @@ const Options = () => {
           </CardHeader>
 
           <CardContent>
+            <Display />
             <SessionTime />
             <RestrictList />
           </CardContent>
