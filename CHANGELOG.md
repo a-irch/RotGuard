@@ -6,11 +6,13 @@ All notable changes to this project will be documented in this file.
 
 ### Features :
 
-- **Remaining Time:** Remaining time can now be diplayed (disableable in settings)
+- **Remaining Time:** Remaining time can now be diplayed (disableable in settings).
+- **Session Count:** Session count per day per service added.
+- **Daily limit:** Option to limit the number of sessions per day (can be disabled and customized in settings).
 
 ### Fix :
 
-- Option title for restricted list renamed
+- Option title for restricted list renamed.
 
 ## v1.0.0
 

@@ -18,6 +18,7 @@ chrome.runtime.onInstalled.addListener(async (event) => {
     await storage.set('waiting-time', 15);
     await storage.set('session-duration', 10);
     await storage.set('display-remaining', false);
+    await storage.set('daily-limit', 10);
   }
 });
 
