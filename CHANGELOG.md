@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Features :
 
+- **Remaining Time:** Remaining time can now be diplayed (disableable in settings)
+
 ### Fix :
 
 - Option title for restricted list renamed
