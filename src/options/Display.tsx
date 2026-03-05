@@ -6,15 +6,11 @@ import {
 } from '@/components/ui/field';
 import { toast } from 'sonner';
 
-import { useStorage } from '@plasmohq/storage/hook';
-
 import { Switch } from '~/components/ui/switch';
+import { useSettings } from '~/hooks/useSettings';
 
 const Display = () => {
-  const [displayRemaining, setDisplayRemaining] = useStorage<boolean>(
-    'display-remaining',
-    false,
-  );
+  const { displayRemaining, setDisplayRemaining } = useSettings();
 
   const handleToggle = (checked: boolean) => {
     setDisplayRemaining(checked);

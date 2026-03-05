@@ -9,21 +9,18 @@ import { Input } from '@/components/ui/input';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-import { useStorage } from '@plasmohq/storage/hook';
-
 import { Switch } from '~/components/ui/switch';
-import type { DailyLimitSession } from '~/types/Page';
+import { useSettings } from '~/hooks/useSettings';
 
 const SessionTime = () => {
-  const [waitingTime, setWaitingTime] = useStorage<number>('waiting-time', 15);
-  const [sessionDuration, setSessionDuration] = useStorage<number>(
-    'session-duration',
-    10,
-  );
-  const [dailyLimit, setDailyLimit] = useStorage<DailyLimitSession>(
-    'daily-limit',
-    'none',
-  );
+  const {
+    waitingTime,
+    setWaitingTime,
+    sessionDuration,
+    setSessionDuration,
+    dailyLimit,
+    setDailyLimit,
+  } = useSettings();
 
   const [localWaitingTime, setLocalWaitingTime] = useState<number>(15);
   const [localSessionDuration, setLocalSessionDuration] = useState<number>(10);

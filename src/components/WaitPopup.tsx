@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { useStorage } from '@plasmohq/storage/hook';
-
 import { useActiveSessions } from '~/hooks/useActiveSessions';
 import { useRestrictList } from '~/hooks/useRestrictList';
-import type { DailyLimitSession } from '~/types/Page';
+import { useSettings } from '~/hooks/useSettings';
 
 import RemainingTime from './RemainingTime';
 import { Button } from './ui/button';
@@ -18,15 +16,13 @@ import {
 import { Progress } from './ui/progress';
 
 const WaitPopup = ({ domain }: { domain: string }) => {
-  const [waitingTime] = useStorage<number>('waiting-time', 15);
-  const [sessionDuration] = useStorage<number>('session-duration', 10);
-  const [dailyLimit] = useStorage<DailyLimitSession>('daily-limit', 'none');
-  const [displayRemaining] = useStorage<boolean>('display-remaining', false);
-
+  const { waitingTime, sessionDuration, dailyLimit, displayRemaining } =
+    useSettings();
   const { restrictList, incrementDailySession } = useRestrictList();
   const { getActiveSession, startSession, endSession } = useActiveSessions();
 
   const today = new Date().toLocaleDateString('en-US');
+
   const currentPage = restrictList?.find(
     (p) => p.domain === domain || domain.endsWith('.' + p.domain),
   );
