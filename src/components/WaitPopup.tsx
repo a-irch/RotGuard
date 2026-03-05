@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 
 import { useStorage } from '@plasmohq/storage/hook';
 
-import type { DailyLimitSession, Page } from '~/types/Page';
+import { useRestrictList } from '~/hooks/useRestrictList';
+import type { DailyLimitSession } from '~/types/Page';
 import type { Session } from '~/types/Session';
 
 import RemainingTime from './RemainingTime';
@@ -23,10 +24,7 @@ const WaitPopup = ({ domain }: { domain: string }) => {
 
   const [sessions, setSessions] = useStorage<Session[]>('active-session', []);
   const [displayRemaining] = useStorage<boolean>('display-remaining', false);
-  const [restrictList, setRestrictList] = useStorage<Page[]>(
-    'restrict-list',
-    [],
-  );
+  const { restrictList, incrementDailySession } = useRestrictList();
 
   const today = new Date().toLocaleDateString('en-US');
   const currentPage = restrictList?.find(
@@ -77,38 +75,24 @@ const WaitPopup = ({ domain }: { domain: string }) => {
     const handleEndWaiting = () => {
       setTabMute(false);
       const expireDate = Date.now() + sessionDuration * 1000 * 60;
-      const cleanedSessions = (sessions || []).filter(
-        (s) => s.expireDate > Date.now() && s.domain !== domain,
-      );
-      setSessions([...cleanedSessions, { domain, expireDate }]);
 
-      setRestrictList((prev) =>
-        prev.map((page) => {
-          if (page.domain === domain || domain.endsWith('.' + page.domain)) {
-            const newStats = { ...(page.stats || {}) };
-            newStats[today] = (newStats[today] || 0) + 1;
-            return { ...page, stats: newStats };
-          }
-          return page;
-        }),
-      );
+      setSessions((prevSessions) => {
+        const cleanedSessions = (prevSessions || []).filter(
+          (s) => s.expireDate > Date.now() && s.domain !== domain,
+        );
+        return [...cleanedSessions, { domain, expireDate }];
+      });
+
+      incrementDailySession(today, domain);
 
       setIsAccepted(false);
       setProgress(0);
     };
 
     return () => clearInterval(interval);
-  }, [
-    isAccepted,
-    isAuthorized,
-    sessionDuration,
-    waitingTime,
-    domain,
-    sessions,
-    setSessions,
-    setRestrictList,
-    today,
-  ]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAccepted, isAuthorized, waitingTime, sessionDuration, domain, today]);
 
   useEffect(() => {
     if (isAuthorized) {

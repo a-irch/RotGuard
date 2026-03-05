@@ -6,15 +6,10 @@ import '@/globals.css';
 import { Cog } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-import { useStorage } from '@plasmohq/storage/hook';
-
-import type { Page } from '~/types/Page';
+import { useRestrictList } from '~/hooks/useRestrictList';
 
 const IndexPopup = () => {
-  const [restrictList, setRestrictList] = useStorage<Page[]>(
-    'restrict-list',
-    [],
-  );
+  const { restrictList, addPage } = useRestrictList();
   const [currentDomain, setCurrentDomain] = useState<string>('');
 
   useEffect(() => {
@@ -41,12 +36,7 @@ const IndexPopup = () => {
     const capitalizedName =
       defaultName.charAt(0).toUpperCase() + defaultName.slice(1);
 
-    const newPage: Page = {
-      name: capitalizedName,
-      domain: currentDomain,
-    };
-
-    setRestrictList([...(restrictList || []), newPage]);
+    addPage({ name: capitalizedName, domain: currentDomain });
   };
 
   const isRestricted = restrictList?.some(

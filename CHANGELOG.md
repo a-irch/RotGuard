@@ -14,6 +14,10 @@ All notable changes to this project will be documented in this file.
 
 - Option title for restricted list renamed.
 
+### Change :
+
+- **Customs Hooks:** access to restrict list in storage is now centralise in the useRestrictList hook.
+
 ## v1.0.0
 
 ### Features :
