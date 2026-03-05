@@ -8,42 +8,13 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import type { Page } from '@/types/Page';
-import { toast } from 'sonner';
 
-import { useStorage } from '@plasmohq/storage/hook';
+import { useRestrictList } from '~/hooks/useRestrictList';
 
 import WebsiteFavicon from './WebsiteFavIcon';
 
 const RestrictList = () => {
-  const [restrictList, setRestrictList] = useStorage<Page[]>(
-    'restrict-list',
-    [],
-  );
-
-  const editRestrict = (page: Page, editedPage: Page) => {
-    const list = restrictList.filter((p) => p !== page);
-    list.push(editedPage);
-    setRestrictList(list);
-    toast.success('Website updated !');
-  };
-
-  const addRestricted = (newPage: Page) => {
-    setRestrictList([...restrictList, newPage]);
-    toast.success('Website added to restrict list !');
-  };
-  const removeRestricted = (page: Page) => {
-    const list = restrictList.filter((p) => p !== page);
-    setRestrictList(list);
-    toast.success('Website removed from restrict list !', {
-      action: {
-        label: 'Undo',
-        onClick: () => {
-          setRestrictList([...list, page]);
-        },
-      },
-    });
-  };
+  const { restrictList, addPage, removePage, editPage } = useRestrictList();
 
   return (
     <div className="mt-4">
@@ -58,6 +29,7 @@ const RestrictList = () => {
             <TableHead>Name</TableHead>
             <TableHead>Domain</TableHead>
             <TableHead>Session</TableHead>
+            <TableHead>Daily limit</TableHead>
             <TableHead></TableHead>
           </TableRow>
         </TableHeader>
@@ -70,11 +42,12 @@ const RestrictList = () => {
               <TableCell>{page.name}</TableCell>
               <TableCell>{page.domain}</TableCell>
               <TableCell>Default</TableCell>
+              <TableCell>Default</TableCell>
               <TableCell className="text-right">
                 <RestrictedDropdown
                   page={page}
-                  onDelete={removeRestricted}
-                  onEdit={editRestrict}
+                  onDelete={removePage}
+                  onEdit={editPage}
                 />
               </TableCell>
             </TableRow>
@@ -83,7 +56,7 @@ const RestrictList = () => {
       </Table>
 
       <div className="mt-3 flex justify-end">
-        <AddRestrict addRestricted={addRestricted} />
+        <AddRestrict addRestricted={addPage} />
       </div>
     </div>
   );

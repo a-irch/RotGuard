@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { useStorage } from '@plasmohq/storage/hook';
-
-import type { DailyLimitSession, Page } from '~/types/Page';
-import type { Session } from '~/types/Session';
+import { useActiveSessions } from '~/hooks/useActiveSessions';
+import { useRestrictList } from '~/hooks/useRestrictList';
+import { useSettings } from '~/hooks/useSettings';
 
 import RemainingTime from './RemainingTime';
 import { Button } from './ui/button';
@@ -17,18 +16,13 @@ import {
 import { Progress } from './ui/progress';
 
 const WaitPopup = ({ domain }: { domain: string }) => {
-  const [waitingTime] = useStorage<number>('waiting-time', 15);
-  const [sessionDuration] = useStorage<number>('session-duration', 10);
-  const [dailyLimit] = useStorage<DailyLimitSession>('daily-limit', 'none');
-
-  const [sessions, setSessions] = useStorage<Session[]>('active-session', []);
-  const [displayRemaining] = useStorage<boolean>('display-remaining', false);
-  const [restrictList, setRestrictList] = useStorage<Page[]>(
-    'restrict-list',
-    [],
-  );
+  const { waitingTime, sessionDuration, dailyLimit, displayRemaining } =
+    useSettings();
+  const { restrictList, incrementDailySession } = useRestrictList();
+  const { getActiveSession, startSession, endSession } = useActiveSessions();
 
   const today = new Date().toLocaleDateString('en-US');
+
   const currentPage = restrictList?.find(
     (p) => p.domain === domain || domain.endsWith('.' + p.domain),
   );
@@ -39,9 +33,7 @@ const WaitPopup = ({ domain }: { domain: string }) => {
   const [progress, setProgress] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(waitingTime);
 
-  const activeSession = sessions?.find(
-    (s) => s.domain === domain && s.expireDate > Date.now(),
-  );
+  const activeSession = getActiveSession(domain);
   const isAuthorized = !!activeSession;
 
   const cancel = () => {
@@ -76,37 +68,23 @@ const WaitPopup = ({ domain }: { domain: string }) => {
 
     const handleEndWaiting = () => {
       setTabMute(false);
-      const expireDate = Date.now() + sessionDuration * 1000 * 60;
-      const cleanedSessions = (sessions || []).filter(
-        (s) => s.expireDate > Date.now() && s.domain !== domain,
-      );
-      setSessions([...cleanedSessions, { domain, expireDate }]);
 
-      setRestrictList((prev) =>
-        prev.map((page) => {
-          if (page.domain === domain || domain.endsWith('.' + page.domain)) {
-            const newStats = { ...(page.stats || {}) };
-            newStats[today] = (newStats[today] || 0) + 1;
-            return { ...page, stats: newStats };
-          }
-          return page;
-        }),
-      );
+      startSession(domain, sessionDuration);
+      incrementDailySession(today, domain);
 
       setIsAccepted(false);
       setProgress(0);
     };
 
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isAccepted,
     isAuthorized,
-    sessionDuration,
     waitingTime,
+    sessionDuration,
     domain,
-    sessions,
-    setSessions,
-    setRestrictList,
+    startSession,
     today,
   ]);
 
@@ -116,12 +94,12 @@ const WaitPopup = ({ domain }: { domain: string }) => {
 
       const timer = setTimeout(() => {
         setTabMute(true);
-        setSessions((prev) => prev.filter((s) => s.domain !== domain));
+        endSession(domain);
       }, timeRemaining);
 
       return () => clearTimeout(timer);
     }
-  }, [isAuthorized, activeSession, domain, setSessions]);
+  }, [isAuthorized, activeSession, domain, endSession]);
 
   if (isAuthorized) {
     if (displayRemaining)
