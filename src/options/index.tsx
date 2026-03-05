@@ -14,6 +14,7 @@ import { Github, Globe } from 'lucide-react';
 import Display from './Display';
 import RestrictList from './RestrictList';
 import SessionTime from './SessionTime';
+import SettingsData from './SettingsData';
 
 const Options = () => {
   return (
@@ -31,6 +32,7 @@ const Options = () => {
             <Display />
             <SessionTime />
             <RestrictList />
+            <SettingsData />
           </CardContent>
         </Card>
       </div>

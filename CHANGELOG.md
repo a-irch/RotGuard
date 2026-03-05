@@ -8,7 +8,8 @@ All notable changes to this project will be documented in this file.
 
 - **Remaining Time:** Remaining time can now be diplayed (disableable in settings).
 - **Session Count:** Session count per day per service added.
-- **Daily limit:** Option to limit the number of sessions per day (can be disabled and customized in settings).
+- **Daily Limit:** Option to limit the number of sessions per day (can be disabled and customized in settings).
+- **Export Settings:** Option to export settings (with or without statistics).
 
 ### Fix :
 
@@ -20,6 +21,7 @@ All notable changes to this project will be documented in this file.
   - Access to restrict list is now centralise in the useRestrictList hook.
   - Access to active sessions is now centralise in the useActiveSessions hook.
   - Access to settings variable is now centralise in the useSettings hook.
+- **ESLint unused variable:** New ignore patterns
 
 ## v1.0.0
 
