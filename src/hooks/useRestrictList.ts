@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { toast } from 'sonner';
 
 import { useStorage } from '@plasmohq/storage/hook';
@@ -73,11 +74,19 @@ export const useRestrictList = () => {
     );
   };
 
+  const overwriteList = useCallback(
+    (newList: Page[]) => {
+      setRestrictList(newList);
+    },
+    [setRestrictList],
+  );
+
   return {
     restrictList,
     addPage,
     removePage,
     editPage,
     incrementDailySession,
+    overwriteList,
   };
 };
