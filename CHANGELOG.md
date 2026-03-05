@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - **Session Count:** Session count per day per service added.
 - **Daily Limit:** Option to limit the number of sessions per day (can be disabled and customized in settings).
 - **Export Settings:** Option to export settings (with or without statistics).
+- **Import Settings:** Option to import settings (by uploading file or modifying an input).
 
 ### Fix :
 
