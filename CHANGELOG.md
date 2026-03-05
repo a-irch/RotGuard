@@ -16,7 +16,10 @@ All notable changes to this project will be documented in this file.
 
 ### Change :
 
-- **Customs Hooks:** access to restrict list in storage is now centralise in the useRestrictList hook.
+- **Customs Hooks: (read and write in storage)**
+  - Access to restrict list is now centralise in the useRestrictList hook.
+  - Access to active sessions is now centralise in the useActiveSessions hook.
+  - Access to settings variable is now centralise in the useSettings hook.
 
 ## v1.0.0
 
