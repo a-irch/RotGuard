@@ -1,10 +1,9 @@
 import WaitPopup from '@/components/WaitPopup';
-import type { Page } from '@/types/Page';
 import cssText from 'data-text:@/globals.css';
 import type { PlasmoCSConfig } from 'plasmo';
 import { useEffect, useState } from 'react';
 
-import { useStorage } from '@plasmohq/storage/hook';
+import { useRestrictList } from '~/hooks/useRestrictList';
 
 export const config: PlasmoCSConfig = {
   matches: ['<all_urls>'],
@@ -18,7 +17,7 @@ export const getStyle = () => {
 };
 
 const WaitPopUp = () => {
-  const [restrictList] = useStorage<Page[]>('restrict-list', []);
+  const { restrictList } = useRestrictList();
   const [shouldShow, setShouldShow] = useState(false);
 
   const [currentDomain, setCurrentDomain] = useState<string>('');
@@ -37,7 +36,6 @@ const WaitPopUp = () => {
     });
 
     if (isRestricted) {
-      chrome.runtime.sendMessage({ action: 'MUTE_TAB', value: true });
       setShouldShow(true);
     } else {
       setShouldShow(false);

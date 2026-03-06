@@ -45,6 +45,44 @@ const WaitPopup = ({ domain }: { domain: string }) => {
   };
 
   useEffect(() => {
+    if (isAuthorized) return;
+
+    setTabMute(true);
+    const originalBodyOverflow = document.body.style.overflow;
+    document.body.style.setProperty('overflow', 'hidden', 'important');
+
+    const preventScroll = (e: Event) => {
+      e.preventDefault();
+    };
+
+    const preventKeyScroll = (e: KeyboardEvent) => {
+      const keys = [
+        'Space',
+        'PageUp',
+        'PageDown',
+        'End',
+        'Home',
+        'ArrowUp',
+        'ArrowDown',
+      ];
+      if (keys.includes(e.code)) {
+        e.preventDefault();
+      }
+    };
+    window.addEventListener('wheel', preventScroll, { passive: false });
+    window.addEventListener('touchmove', preventScroll, { passive: false });
+    window.addEventListener('keydown', preventKeyScroll, { passive: false });
+
+    return () => {
+      document.body.style.overflow = originalBodyOverflow;
+
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+      window.removeEventListener('keydown', preventKeyScroll);
+    };
+  }, [isAuthorized]);
+
+  useEffect(() => {
     if (!isAccepted || isAuthorized) return;
 
     const startTime = Date.now();
