@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 ### Fix :
 
 - Option title for restricted list renamed.
+- Scroll, touch and key are disabled while waiting for access content.
 
 ### Change :
 
