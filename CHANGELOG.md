@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - **Remaining Time:** Remaining time can now be diplayed (disableable in settings).
 - **Session Count:** Session count per day per service added.
 - **Daily Limit:** Option to limit the number of sessions per day (can be disabled and customized in settings).
+- **Statistics:** Track how many session per service you have on the 7 last day (available in the add-on popup).
 - **Export Settings:** Option to export settings (with or without statistics).
 - **Import Settings:** Option to import settings (by uploading file or modifying an input).
 
