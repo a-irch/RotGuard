@@ -71,14 +71,6 @@ const IndexPopup = () => {
   }, [last7Days, currentPage]);
 
   const { globalData, globalChartConfig } = useMemo(() => {
-    const CHART_COLORS = [
-      '#3b82f6',
-      '#f43f5e',
-      '#10b981',
-      '#f59e0b',
-      '#8b5cf6',
-      '#06b6d4',
-    ];
     const data = last7Days.map((date) => {
       const [m, d] = date.split('/');
       const formattedDate = `${m.padStart(2, '0')}/${d.padStart(2, '0')}`;
@@ -94,7 +86,7 @@ const IndexPopup = () => {
     restrictList?.forEach((page, index) => {
       config[page.name] = {
         label: page.name,
-        color: CHART_COLORS[index % CHART_COLORS.length],
+        color: `var(--chart-${(index % 15) + 1})`,
       };
     });
 
@@ -102,7 +94,7 @@ const IndexPopup = () => {
   }, [last7Days, restrictList]);
 
   const singleChartConfig = {
-    sessions: { label: 'Sessions', color: '#3b82f6' },
+    sessions: { label: 'Sessions', color: '#f5acb3' },
   } satisfies ChartConfig;
 
   return (

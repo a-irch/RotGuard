@@ -85,15 +85,18 @@ const StatsCharts = ({
                 tickMargin={8}
               />
               <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-              {restrictList?.map((page) => (
-                <Bar
-                  key={page.domain}
-                  dataKey={page.name}
-                  stackId="a"
-                  fill={`var(--color-${page.name})`}
-                  radius={0}
-                />
-              ))}
+              {restrictList?.map((page, index) => {
+                const isTopLayer = index === restrictList.length - 1;
+                return (
+                  <Bar
+                    key={page.domain}
+                    dataKey={page.name}
+                    stackId="a"
+                    fill={`var(--color-${page.name})`}
+                    radius={isTopLayer ? [4, 4, 0, 0] : [0, 0, 0, 0]}
+                  />
+                );
+              })}
             </BarChart>
           </ChartContainer>
         </TabsContent>
