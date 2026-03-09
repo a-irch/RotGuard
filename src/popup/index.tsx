@@ -54,7 +54,7 @@ const IndexPopup = () => {
   const last7Days = useMemo(() => {
     return Array.from({ length: 7 }).map((_, i) => {
       const d = new Date();
-      d.setDate(d.getDate() - (6 - i));
+      d.setDate(d.getDate() - i);
       return d.toLocaleDateString('en-US');
     });
   }, []);
