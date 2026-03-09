@@ -112,7 +112,7 @@ const IndexPopup = () => {
           currentDomain={currentDomain}
           isRestricted={isRestricted}
           currentPage={currentPage}
-          sessionsToday={currentPage?.stats?.[last7Days[6]] || 0}
+          sessionsToday={currentPage?.stats?.[last7Days[0]] || 0}
           dailyLimit={dailyLimit}
           onRestrict={quickRestrict}
         />
