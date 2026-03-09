@@ -1,15 +1,19 @@
-import { Button } from '@/components/ui/button';
-import logo from 'data-base64:~../assets/icon512.png';
-
 import '@/globals.css';
 
-import { Cog } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { type ChartConfig } from '@/components/ui/chart';
+import { useEffect, useMemo, useState } from 'react';
 
+import { Card, CardContent } from '~/components/ui/card';
 import { useRestrictList } from '~/hooks/useRestrictList';
+import { useSettings } from '~/hooks/useSettings';
+
+import PopupHeader from './PopupHeader';
+import SiteStatus from './SiteStatus';
+import StatsCharts from './StatsCharts';
 
 const IndexPopup = () => {
   const { restrictList, addPage } = useRestrictList();
+  const { dailyLimit } = useSettings();
   const [currentDomain, setCurrentDomain] = useState<string>('');
 
   useEffect(() => {
@@ -39,52 +43,84 @@ const IndexPopup = () => {
     addPage({ name: capitalizedName, domain: currentDomain });
   };
 
-  const isRestricted = restrictList?.some(
+  const currentPage = restrictList?.find(
     (page) =>
       currentDomain === page.domain ||
       currentDomain.endsWith('.' + page.domain),
   );
 
-  const openOptions = () => {
-    chrome.runtime.openOptionsPage();
-  };
+  const isRestricted = !!currentPage;
+
+  const last7Days = useMemo(() => {
+    return Array.from({ length: 7 }).map((_, i) => {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      return d.toLocaleDateString('en-US');
+    });
+  }, []);
+
+  const currentSiteData = useMemo(() => {
+    return last7Days.map((date) => {
+      const [m, d] = date.split('/');
+      const formattedDate = `${m.padStart(2, '0')}/${d.padStart(2, '0')}`;
+      return {
+        date: formattedDate,
+        sessions: currentPage?.stats?.[date] || 0,
+      };
+    });
+  }, [last7Days, currentPage]);
+
+  const { globalData, globalChartConfig } = useMemo(() => {
+    const data = last7Days.map((date) => {
+      const [m, d] = date.split('/');
+      const formattedDate = `${m.padStart(2, '0')}/${d.padStart(2, '0')}`;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const dayData: any = { date: formattedDate };
+      restrictList?.forEach((page) => {
+        dayData[page.name] = page.stats?.[date] || 0;
+      });
+      return dayData;
+    });
+
+    const config: ChartConfig = {};
+    restrictList?.forEach((page, index) => {
+      config[page.name] = {
+        label: page.name,
+        color: `var(--chart-${(index % 15) + 1})`,
+      };
+    });
+
+    return { globalData: data, globalChartConfig: config };
+  }, [last7Days, restrictList]);
+
+  const singleChartConfig = {
+    sessions: { label: 'Sessions', color: '#f5acb3' },
+  } satisfies ChartConfig;
 
   return (
-    <div className="w-[16rem]">
-      <div className="flex items-center justify-between p-4">
-        <div className="flex items-center gap-2">
-          <img
-            src={logo}
-            alt="RotGuard Logo"
-            className="h-8 w-8 object-contain"
-          />
-          <h1 className="text-xl font-bold">RotGuard</h1>
-        </div>
+    <Card className="w-[24rem] border-none">
+      <PopupHeader />
 
-        <Button variant="ghost" size="icon" onClick={openOptions}>
-          <Cog className="h-6 w-6" />
-        </Button>
-      </div>
-      <div className="m-6 flex flex-col">
-        {currentDomain ? (
-          isRestricted ? (
-            <p className="text-center text-sm font-medium text-muted-foreground">
-              This page is already restricted.
-            </p>
-          ) : (
-            <Button onClick={quickRestrict} className="w-full">
-              Restrict this site
-            </Button>
-          )
-        ) : (
-          <p className="text-center text-sm text-muted-foreground">
-            Cannot restrict this page.
-          </p>
-        )}
-      </div>
+      <CardContent>
+        <SiteStatus
+          currentDomain={currentDomain}
+          isRestricted={isRestricted}
+          currentPage={currentPage}
+          sessionsToday={currentPage?.stats?.[last7Days[0]] || 0}
+          dailyLimit={dailyLimit}
+          onRestrict={quickRestrict}
+        />
 
-      <div className="h-px w-full bg-border" />
-    </div>
+        <StatsCharts
+          isRestricted={isRestricted}
+          restrictList={restrictList || []}
+          currentSiteData={currentSiteData}
+          globalData={globalData}
+          globalChartConfig={globalChartConfig}
+          singleChartConfig={singleChartConfig}
+        />
+      </CardContent>
+    </Card>
   );
 };
 
