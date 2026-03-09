@@ -37,7 +37,7 @@ export const useRestrictList = () => {
       (prev) => prev?.filter((p) => p.domain !== pageToRemove.domain) || [],
     );
 
-    toast.success('Website removed from restrict list !', {
+    toast.success('Website removed from restricted list !', {
       position: 'bottom-right',
       action: {
         label: 'Undo',

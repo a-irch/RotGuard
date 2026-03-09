@@ -30,8 +30,11 @@ Instead of blocking websites entirely (which often leads to frustration and inst
 
 - **Custom Blocklist:** Restrict specific distracting websites.
 - **Intentional Delay:** Mandatory waiting time before access to break bad habits.
-- **Session Limits:** Custom session durations to keep your browsing in check.
-- **Privacy First:** Runs locally in your browser. No tracking, no data collection.
+- **Session Durations & Daily Limits:** Set custom session lengths and limit how many times you can access a site per day.
+- **Usage Statistics:** Visualize your browsing habits with a 7-day interactive chart right from the popup.
+- **On-Screen Timer:** Optionally display the remaining session time directly on the restricted pages.
+- **Data Management:** Export and import your configuration and statistics via JSON backups.
+- **Privacy First:** Runs 100% locally in your browser. No tracking, no data collection, no account required.
 
 ## Installation
 
@@ -69,7 +72,7 @@ Instead of blocking websites entirely (which often leads to frustration and inst
 3. Build for production :
 
    ```bash
-    pnpm build --zip
+    pnpm build
    ```
 
 4. Load the production build :

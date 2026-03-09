@@ -27,7 +27,7 @@ const IndexPopup = () => {
             setCurrentDomain(domain);
           }
         } catch (error) {
-          console.error("Can't read tab URL :", error);
+          console.error("Can't read tab URL:", error);
         }
       }
     });

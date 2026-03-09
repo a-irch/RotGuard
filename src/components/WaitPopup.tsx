@@ -162,7 +162,7 @@ const WaitPopup = ({ domain }: { domain: string }) => {
                 <p>
                   You already use {sessionsToday}
                   {sessionsToday > 1 ? ' sessions ' : ' session '}
-                  {dailyLimit !== 'none' && `on ${dailyLimit}`} today
+                  {dailyLimit !== 'none' && `out of ${dailyLimit}`} today
                 </p>
                 <div className="flex justify-end gap-2">
                   <Button variant="secondary" onClick={() => cancel()}>
