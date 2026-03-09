@@ -76,7 +76,7 @@ const SessionTime = () => {
               Session duration (minutes)
             </FieldLabel>
             <FieldDescription>
-              Time allowed before the popup returns.
+              Duration of allowed access before the popup reappears.
             </FieldDescription>
             <Input
               id="session-duration"
@@ -91,7 +91,7 @@ const SessionTime = () => {
               Waiting time (seconds)
             </FieldLabel>
             <FieldDescription>
-              Time spent looking at the popup.
+              Mandatory waiting time before accessing the site.
             </FieldDescription>
             <Input
               id="waiting-time"
@@ -110,7 +110,7 @@ const SessionTime = () => {
           className="flex items-center justify-between gap-4">
           <FieldContent className="flex-1">
             <FieldLabel htmlFor="daily-limit" className="mb-0">
-              Daily sessions limit
+              Daily session limit
             </FieldLabel>
             <FieldDescription>
               Limit the number of times you can access restricted sites each
