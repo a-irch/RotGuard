@@ -1,0 +1,10 @@
+html,
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  color: transparent !important;
+  border-radius: 75rem !important;
+  width: fit-content !important;
+  height: fit-content !important;
+}
