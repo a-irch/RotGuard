@@ -61,9 +61,10 @@ const IndexPopup = () => {
 
   const currentSiteData = useMemo(() => {
     return last7Days.map((date) => {
-      const shortDate = date.split('/').slice(0, 2).join('/');
+      const [m, d] = date.split('/');
+      const formattedDate = `${m.padStart(2, '0')}/${d.padStart(2, '0')}`;
       return {
-        date: shortDate,
+        date: formattedDate,
         sessions: currentPage?.stats?.[date] || 0,
       };
     });
@@ -79,9 +80,10 @@ const IndexPopup = () => {
       '#06b6d4',
     ];
     const data = last7Days.map((date) => {
-      const shortDate = date.split('/').slice(0, 2).join('/');
+      const [m, d] = date.split('/');
+      const formattedDate = `${m.padStart(2, '0')}/${d.padStart(2, '0')}`;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const dayData: any = { date: shortDate };
+      const dayData: any = { date: formattedDate };
       restrictList?.forEach((page) => {
         dayData[page.name] = page.stats?.[date] || 0;
       });
